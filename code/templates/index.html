@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>SKSEC WebShell Detect System</title>
+    <link rel="stylesheet" type="text/css" href="./static/main.css"/>
+</head>
+
+<body>
+<div class="vi">
+    <div class="sidebar">
+		 <div class="header">
+            <h1>SKSEC</h1>
+            <div class="quote">
+                <p class="quote-text animate-init">Welcome to use SKSEC WebShell Detecte System<a href="./upload.html" class="animate-init"> upload files</a></p>
+            </div>
+        </div>
+        <div class="relocating">
+            Navigating to: <span class="relocate-location"></span>...
+        </div>
+    </div>
+
+    <div class="content">
+        <span class="close">close</span>
+    </div>
+</div>
+<script type="text/javascript" src="./static/index.js"></script>
+<script>
+    $(document).ready(function () {
+        var delay = 1;
+        var DELAY_STEP = 200;
+        var animationOptions = { opacity: 1, top: 0};
+
+        $('h1').animate(animationOptions).promise()
+                .pipe(animateMain)
+                .pipe(animateLocationIcon);
+
+        function animateMain() {
+            var dfd = $.Deferred();
+            var els = $('.animate-init');
+            var size = els.size();
+
+            els.each(function (index, el) {
+                delay++;
+                $(el).delay(index * DELAY_STEP)
+                        .animate(animationOptions);
+                (size - 1 === index) && dfd.resolve();
+            });
+            return dfd.promise();
+        }
+
+        function animateLocationIcon() {
+            $('.location-icon').delay(delay * DELAY_STEP).animate({
+                opacity: 1,
+                top: 0
+            }).promise().done(animationQuote);
+        }
+
+        function animationQuote() {}
+
+        $(document.body).on('keydown', function (event) {
+            // Press 'b' key
+            if (event.which === 66) {
+                $('.relocate-location').text('Bookmark Page');
+                $('.relocating').css('opacity', 1);
+
+                window.setTimeout(function () {
+                    window.location.href = '/bookmarks.html';
+                }, 1000);
+            }
+        });
+    });
+</script>
+</body>
+</html>
