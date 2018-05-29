@@ -1,2 +1,2 @@
-# WebShell-Detecter
+# WebShell-Detector
 基于深度学习与集成学习的综合策略WebShell检测系统
